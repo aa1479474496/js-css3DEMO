@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>3D旋转</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0
+			}
+			
+			html,
+			body {
+				width:100%;
+				height:100%;
+				overflow:hidden;
+			}
+			
+			.stage {
+				width:100%;
+				padding-top:20%;
+				height:80%;
+				position: relative;
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+				-webkit-transform: perspective(2800px);
+				transform: perspective(2800px);
+				-webkit-animation: myfirst 10s infinite;	/* Safari 和 Chrome */
+				animation: myfirst 10s infinite;
+			}
+			@-webkit-keyframes myfirst{
+				0%   {-webkit-transform: rotateY(0deg);transform: rotateY(0deg);}
+				50%   {-webkit-transform: rotateY(180deg);transform: rotateY(180deg);}
+				100% {-webkit-transform: rotateY(360deg);transform: rotateY(360deg);}
+			}
+			@keyframes myfirst{
+				0%   {-webkit-transform: rotateY(0deg);transform: rotateY(0deg);}
+				50%   {-webkit-transform: rotateY(180deg);transform: rotateY(180deg);}
+				100% {-webkit-transform: rotateY(360deg);transform: rotateY(360deg);}
+			}
+			
+			.stage img {
+				position: absolute;
+				left:50%;
+				width:200px;
+				margin-left:-100px;
+				-webkit-box-reflect: below 10px -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
+				box-reflect: below 10px -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="stage" id="stage">
+			<img src="img/img1.jpg" alt="" />
+			<img src="img/img2.jpg" alt="" />
+			<img src="img/img3.jpg" alt="" />
+			<img src="img/img4.jpg" alt="" />
+			<img src="img/img5.jpg" alt="" />
+			<img src="img/img6.jpg" alt="" />
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+		window.onload = function(){
+			var stage = document.getElementById("stage");
+			var imgs = stage.getElementsByTagName("img");
+			var imgsLength = imgs.length;
+			console.log(imgsLength);
+			var deg = 360 / imgsLength;
+			for(var i = 0 ; i < imgsLength; i++){
+				var str = "rotateY("+ i* deg+"deg) translateZ(200px)";
+				getStyle(imgs[i],str);
+			}
+			
+			function getStyle(ele,value){
+				var arr = ["webkit",""];
+				for(var i = 0; i < arr.length; i++){
+					ele.style[arr[i]+"Transform"] = value;
+				}
+			}
+		}
+	</script>
+
+</html>
